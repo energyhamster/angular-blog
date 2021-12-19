@@ -4,11 +4,14 @@
   <div class="form-control">
     <label for="email">Email:</label>
     <input type="email" id="email" formControlName="email">
-    <div class="validation">
-      <small>
-        Type email
+    <div
+      *ngIf="form.controls.email.invalid && form.controls.email.touched"
+      class="validation"
+    >
+      <small *ngIf="form.controls.email.errors?.required">
+        Enter email
       </small>
-      <small>
+      <small *ngIf="form.controls.email.errors?.email">
         Email incorrect
       </small>
     </div>
@@ -17,9 +20,18 @@
   <div class="form-control">
     <label for="password">Password:</label>
     <input type="password" id="password" formControlName="password">
-    <div class="validation">
-      <small>
-        Type password
+    <div
+      *ngIf="form.controls.password.invalid && form.controls.password.touched"
+      class="validation">
+      <small *ngIf="form.controls.password.errors?.required">
+        Enter password
+      </small>
+      <small *ngIf="form.controls.password.errors?.minlength">
+        Password should be
+        {{ form.controls.password.errors?.minlength.requiredLength }}
+        symbols. Now password
+        {{ form.controls.password.errors?.minlength.actualLength }}
+        symbols.
       </small>
     </div>
   </div>
@@ -27,6 +39,5 @@
   <button
     type="submit"
     class="btn btn-primary"
-    [disabled]="form.invalid"
   >Login</button>
 </form>
