@@ -5,6 +5,10 @@
     {{ error }}
   </div>
 
+  <div class="alert alert-info" *ngIf="message">
+    {{ message }}
+  </div>
+
   <div class="form-control">
     <label for="email">Email:</label>
     <input type="email" id="email" formControlName="email">
