@@ -1,1 +1,30 @@
-<p>edit-page works!</p>
+<div *ngIf="form; else loading">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-control">
+      <label for="title">Post title:</label>
+      <input type="text" id="title" formControlName="title">
+      <div
+        *ngIf="form.controls.title.invalid && form.controls.title.touched"
+        class="validation"
+      >
+        <small *ngIf="form.controls.title.errors?.required">
+          Enter post title
+        </small>
+      </div>
+    </div>
+
+    <div class="form-control">
+      <input type="text" id="content" formControlName="content">
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="form.invalid || submitted"
+    >Update</button>
+  </form>
+</div>
+
+<ng-template #loading>
+  <p class="text-center">Loading...</p>
+</ng-template>
