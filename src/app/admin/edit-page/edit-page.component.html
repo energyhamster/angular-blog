@@ -14,6 +14,7 @@
     </div>
 
     <div class="form-control">
+      <label for="content">Post content:</label>
       <input type="text" id="content" formControlName="content">
     </div>
 
@@ -23,8 +24,16 @@
       [disabled]="form.invalid || submitted"
     >Update</button>
   </form>
+  <div *ngIf="uPost; else openPost">
+  </div>
 </div>
 
 <ng-template #loading>
   <p class="text-center">Loading...</p>
+</ng-template>
+
+<ng-template #openPost>
+  <button (click)="uPostOpen(post.id)"
+    class="btn btn-white"
+  >Open updated post</button>
 </ng-template>

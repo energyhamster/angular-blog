@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {PostsService} from "../../shared/posts.service";
 import {switchMap} from "rxjs/operators";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
@@ -23,11 +23,13 @@ export class EditPageComponent implements OnInit, OnDestroy {
   submitted = false
   // @ts-ignore
   uSub: Subscription
+  uPost = true
 
   constructor(
     private route: ActivatedRoute,
     private postsService: PostsService,
-    private alert: AlertService
+    private alert: AlertService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -63,7 +65,11 @@ export class EditPageComponent implements OnInit, OnDestroy {
     }).subscribe(() => {
       this.submitted = false
       this.alert.warning('Post updated')
+      this.uPost = false
     })
+  }
 
+  uPostOpen(id: any) {
+    this.router.navigate(['/post', `${id}`])
   }
 }
